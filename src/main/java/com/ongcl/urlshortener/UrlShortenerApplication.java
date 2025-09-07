@@ -9,10 +9,7 @@ import org.springframework.context.ApplicationContext;
 public class UrlShortenerApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(UrlShortenerApplication.class, args);
-        var service = context.getBean(UrlShortenerService.class);
-        String code = service.generateUniqueShortCode();
-        System.out.println(code);
+        SpringApplication.run(UrlShortenerApplication.class, args);
     }
 
 }

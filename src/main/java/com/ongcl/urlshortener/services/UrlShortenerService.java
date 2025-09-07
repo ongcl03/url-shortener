@@ -1,10 +1,12 @@
 package com.ongcl.urlshortener.services;
 
+import com.ongcl.urlshortener.entities.UrlMapping;
 import com.ongcl.urlshortener.repositories.UrlMappingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Service
@@ -25,7 +27,7 @@ public class UrlShortenerService {
         return shortCode;
     }
 
-    private String generateRandomString() {
+    public String generateRandomString() {
         SecureRandom random = new SecureRandom();
         StringBuilder sb = new StringBuilder(SHORT_CODE_LENGTH);
 
@@ -36,5 +38,21 @@ public class UrlShortenerService {
 
         return sb.toString();
     }
+
+    public UrlMapping createShortUrl(String longUrl) {
+        String shortCode = generateUniqueShortCode();
+
+        // Build the urlMapping object
+        var urlMapping = UrlMapping.builder()
+                .shortCode(shortCode)
+                .longUrl(longUrl)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        // Save the urlMapping object
+        return urlMappingRepository.save(urlMapping);
+    }
+
+
 
 }

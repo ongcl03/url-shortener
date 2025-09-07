@@ -1,9 +1,7 @@
 package com.ongcl.urlshortener.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Builder
+@Getter
+@Setter
 @Table(name = "url_mapping")
 public class UrlMapping {
     @Id

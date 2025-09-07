@@ -1,12 +1,14 @@
 package com.ongcl.urlshortener.services;
 
 import com.ongcl.urlshortener.entities.UrlMapping;
+import com.ongcl.urlshortener.exceptions.ResourceNotFoundException;
 import com.ongcl.urlshortener.repositories.UrlMappingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -53,6 +55,16 @@ public class UrlShortenerService {
         return urlMappingRepository.save(urlMapping);
     }
 
+    public String getLongUrl(String shortCode) {
+        Optional<UrlMapping> urlMappingOptional = urlMappingRepository.findByShortCode(shortCode);
+
+        if (urlMappingOptional.isPresent()) {
+            UrlMapping urlMapping = urlMappingOptional.get();
+            return urlMapping.getLongUrl();
+        } else {
+            throw new ResourceNotFoundException("Short code not found: " + shortCode);
+        }
+    }
 
 
 }

@@ -17,8 +17,6 @@ public class RedirectController {
     public ResponseEntity<Void> redirectToLongUrl(@PathVariable String shortCode) {
         String longUrl = urlShortenerService.getLongUrl(shortCode);
 
-        System.out.println(longUrl);
-
         // If the service call was successful, build the redirect response.
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("Location", longUrl)

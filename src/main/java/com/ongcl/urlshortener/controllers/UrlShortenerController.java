@@ -4,6 +4,7 @@ import com.ongcl.urlshortener.entities.UrlMapping;
 import com.ongcl.urlshortener.services.UrlShortenerService;
 import dtos.CreateShortUrlRequest;
 import dtos.CreateShortUrlResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UrlShortenerController {
 
 
     @PostMapping("create-url")
-    public ResponseEntity<CreateShortUrlResponse> createUrl(@RequestBody CreateShortUrlRequest request) {
+    public ResponseEntity<CreateShortUrlResponse> createUrl(@Valid @RequestBody CreateShortUrlRequest request) {
         // get the long url from the request dto
         String longUrl = request.getLongUrl();
         UrlMapping urlMapping = urlShortenerService.createShortUrl(longUrl);

@@ -4,6 +4,8 @@ import com.ongcl.urlshortener.entities.UrlMapping;
 import com.ongcl.urlshortener.services.UrlShortenerService;
 import dtos.CreateShortUrlRequest;
 import dtos.CreateShortUrlResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
+@Tag(name = "create url")
 public class UrlShortenerController {
     private final UrlShortenerService urlShortenerService;
 
 
     @PostMapping("create-url")
+    @Operation(summary = "Create short url with original long url.")
     public ResponseEntity<CreateShortUrlResponse> createUrl(@Valid @RequestBody CreateShortUrlRequest request) {
         // get the long url from the request dto
         String longUrl = request.getLongUrl();
